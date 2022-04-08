@@ -5,6 +5,8 @@ import com.upc.appsalud.repositorio.RepositorioCentroSalud;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class NegocioCentroSalud {
     @Autowired
@@ -23,7 +25,22 @@ public class NegocioCentroSalud {
         if(calificacion>80)
             return "Aprobado";
         else
-            return "desaprobado";
+            return "Desaprobado";
     }
-    
+
+    public String obtenerResultadoFinal(Long codigo){
+        CentroSalud cs=null;
+        cs = repositorioCentroSalud.findById(codigo).get();
+        return obtenerResultadoFinal(cs);
+    }
+    public double obtenerCalificacion(Long codigo){
+        CentroSalud cs=null;
+        cs = repositorioCentroSalud.findById(codigo).get();
+        return calcularCalificacion(cs);
+    }
+    public List<CentroSalud> obtenerReporte(String tipo){
+        return repositorioCentroSalud.obtenerReporte(tipo);
+    }
+
+
 }
